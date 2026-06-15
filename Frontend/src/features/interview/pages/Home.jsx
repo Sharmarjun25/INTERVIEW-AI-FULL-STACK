@@ -45,7 +45,7 @@ const Home = () => {
     if (loading) {
         return (
             <main className='loading-screen'>
-                <h1>Generating your personalized interview plan... ✨</h1>
+                <h1>Generating your personalized interview plan...</h1>
                 <p style={{ color: '#7d8590', marginTop: '0.5rem', fontSize: '0.9rem' }}>This may take ~30 seconds</p>
             </main>
         )
