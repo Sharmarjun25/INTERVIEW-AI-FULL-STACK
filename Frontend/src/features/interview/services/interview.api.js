@@ -45,4 +45,55 @@ export const getAllInterviewReports = async () => {
 
     return response.data
 }
+
+/**
+ * @description Download an AI-optimised resume PDF for a given interview report.
+ *              Triggers a browser file-save dialog automatically.
+ */
+export const downloadOptimizedResume = async (interviewId) => {
+    const response = await api.post(
+        `/api/resume/generate/${interviewId}`,
+        {},
+        { responseType: 'blob' }
+    );
+
+    // Extract filename from Content-Disposition header (fallback to generic name)
+    const disposition = response.headers['content-disposition'] || '';
+    const match = disposition.match(/filename="(.+?)"/);
+    const filename = match ? match[1] : 'optimized_resume.pdf';
+
+    // Trigger browser download
+    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+};
+
+/**
+ * @description Download the raw LaTeX (.tex) source for the optimised resume.
+ */
+export const downloadLatexSource = async (interviewId) => {
+    const response = await api.post(
+        `/api/resume/generate/${interviewId}?format=tex`,
+        {},
+        { responseType: 'blob' }
+    );
+
+    const disposition = response.headers['content-disposition'] || '';
+    const match = disposition.match(/filename="(.+?)"/);
+    const filename = match ? match[1] : 'resume.tex';
+
+    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/x-tex' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+};
 
