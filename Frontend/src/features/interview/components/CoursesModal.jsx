@@ -18,6 +18,7 @@ const CoursesModal = ({ skill, onClose }) => {
     if (!skill) return null;
 
     const courses = getCoursesForSkill(skill.skill);
+    const isMyCaptain = courses.length > 0 && courses[0].platform === 'mycaptain';
 
     const severityColor = {
         high: '#ff4d4d',
@@ -44,7 +45,6 @@ const CoursesModal = ({ skill, onClose }) => {
             aria-modal="true"
         >
             <div className="courses-modal">
-                {/* Header */}
                 <div className="courses-modal__header">
                     <div className="courses-modal__title-row">
                         <div className="courses-modal__icon">
@@ -54,7 +54,9 @@ const CoursesModal = ({ skill, onClose }) => {
                             </svg>
                         </div>
                         <div>
-                            <p className="courses-modal__subtitle">Free Courses for Skill Gap</p>
+                            <p className="courses-modal__subtitle">
+                                {isMyCaptain ? 'MyCaptain Courses for Skill Gap' : 'Free Courses for Skill Gap'}
+                            </p>
                             <h2 className="courses-modal__title">{skill.skill}</h2>
                         </div>
                         <span
@@ -77,14 +79,13 @@ const CoursesModal = ({ skill, onClose }) => {
                 </div>
 
                 <p className="courses-modal__description">
-                    These free resources will help you close this skill gap before your interview.
+                    Close this skill gap with MyCaptain's live, mentor-led cohort courses.
                 </p>
 
-                {/* Course Cards */}
                 <div className="courses-modal__list">
                     {courses.map((course, i) => {
                         const platformColor = getPlatformColor(course.platform);
-                        const platformIcon = PLATFORM_ICONS[course.platform] || '📚';
+                        const platformIcon = PLATFORM_ICONS[course.platform] || '🚀';
                         return (
                             <a
                                 key={i}
@@ -106,7 +107,7 @@ const CoursesModal = ({ skill, onClose }) => {
                                             }}
                                         >
                                             <span className="course-card__platform-icon">{platformIcon}</span>
-                                            {course.platform}
+                                            MyCaptain
                                         </span>
                                         <span className="course-card__arrow">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -133,7 +134,9 @@ const CoursesModal = ({ skill, onClose }) => {
                                             </svg>
                                             {course.level}
                                         </span>
-                                        <span className="course-card__free-badge">FREE</span>
+                                        <span className="course-card__free-badge">
+                                            {course.platform === 'mycaptain' ? 'LIVE' : 'FREE'}
+                                        </span>
                                     </div>
                                 </div>
                             </a>
@@ -142,7 +145,9 @@ const CoursesModal = ({ skill, onClose }) => {
                 </div>
 
                 <p className="courses-modal__footer-note">
-                    💡 Click any card to open the course in a new tab. All resources are 100% free or free-to-audit.
+                    {isMyCaptain
+                        ? 'Click any card to enroll on MyCaptain — live cohort courses with real mentors.'
+                        : 'Click any card to open the course in a new tab. All resources are 100% free.'}
                 </p>
             </div>
         </div>

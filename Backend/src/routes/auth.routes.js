@@ -35,7 +35,6 @@ authRouter.post("/logout", authController.logoutUserController)
  * @access private
  */
 
-
 authRouter.get("/get-me", authMiddleware.authUser, authController.getMeController)
 
 module.exports = authRouter;

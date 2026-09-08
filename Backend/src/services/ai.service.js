@@ -51,6 +51,7 @@ const interviewReportSchema = z.object({
     title: z.string().describe("the title of the job for which the interview report is generated"),
 })
 
+
 /**
  * Removes fields from a JSON Schema that Gemini API does not support.
  * zodToJsonSchema adds "$schema" and "additionalProperties: false" which
@@ -139,6 +140,7 @@ const optimizedResumeSchema = z.object({
         link: z.string().optional()
     })).optional().describe("Relevant projects to highlight")
 });
+
 
 /**
  * Generates an optimized, ATS-tailored structured resume JSON from stored report data.

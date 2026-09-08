@@ -2,6 +2,7 @@ const interviewReportModel = require('../models/InterviewReport.model');
 const { generateOptimizedResume } = require('../services/ai.service');
 const { generateLatexSource, generatePdfBuffer } = require('../services/resumeGenerator.service');
 
+
 /**
  * POST /api/resume/generate/:interviewId
  *

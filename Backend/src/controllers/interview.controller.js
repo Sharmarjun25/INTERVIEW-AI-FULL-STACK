@@ -4,6 +4,7 @@ const interviewReportModel = require("../models/InterviewReport.model")
 
 
 
+
 /**
  * @description Controller to generate interview report based on user self description , resume and job
  */
@@ -54,6 +55,7 @@ async function generateInterviewReportController(req, res) {
 }
 
 
+
 /**
  * @description Controller to get interview report by interviewId
  */
@@ -73,6 +75,7 @@ async function getInterviewReportByIdController(req, res) {
         interviewReport
     })
 }
+
 
 /**
  * @description Controller to get all interview reports of logged in user
